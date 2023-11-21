@@ -3,26 +3,30 @@ import { S } from "./style";
 import axios from "axios";
 import Nav from "components/Nav";
 import { useEffect, useState } from "react";
+import Card from "./Card";
+
+type Articles = {
+  [key: string]: string;
+};
 
 export default function Main() {
-  const [data, setData] = useState([]);
+  const [articleData, setArticleData] = useState<Articles[]>([]);
 
   useEffect(() => {
     axios
       .get(
         `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=8MeO1rSj1FcMC9n8kbDBTUtw0EgduciL`,
         {
-          params: {
-            limit: 5,
-            offset: 0,
-            sortBy: "LATEST",
-          },
+          // params: {
+          //   limit: 5,
+          //   offset: 0,
+          //   sortBy: "LATEST",
+          // },
         }
       )
       .then((res) => {
         if (res.status === 200) {
-          // console.log(res.data.response.docs);
-          setData(res.data.response.docs);
+          setArticleData(res.data.response.docs);
         } else if (res.status === 400) {
           return null;
         }
@@ -33,8 +37,10 @@ export default function Main() {
   }, []);
 
   return (
-    <div>
-      <Nav></Nav>
-    </div>
+    <S.Container>
+      {articleData.map((data) => {
+        return <Card key={data._id} data={data} />;
+      })}
+    </S.Container>
   );
 }
