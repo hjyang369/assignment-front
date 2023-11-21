@@ -15,6 +15,7 @@ const navIcon = [
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <S.Container>
       {navIcon.map((icon) => {
@@ -24,11 +25,7 @@ export default function Nav() {
           </div>
         );
       })}
-      {isOpen && (
-        <S.ModalBlack>
-          <Modal />
-        </S.ModalBlack>
-      )}
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
     </S.Container>
   );
 }

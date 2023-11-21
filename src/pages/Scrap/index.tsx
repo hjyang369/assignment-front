@@ -10,8 +10,6 @@ type Articles = {
 };
 
 export default function Scrap() {
-  // const articleData: [] = [];
-
   const [articleData, setArticleData] = useState<Articles[]>([]);
 
   useEffect(() => {
