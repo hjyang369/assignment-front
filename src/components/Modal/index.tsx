@@ -18,11 +18,11 @@ export default function Modal() {
     <S.Container>
       <S.SelectValue>
         <S.Title>헤드라인</S.Title>
-        <S.Input></S.Input>
+        <S.Input placeholder="검색하실 헤드라인을 입력해주세요."></S.Input>
       </S.SelectValue>
       <S.SelectValue>
         <S.Title>날짜</S.Title>
-        <S.Input></S.Input>
+        <S.Input placeholder="날짜를 선택해주세요."></S.Input>
       </S.SelectValue>
       <S.SelectValue>
         <S.Title>국가</S.Title>

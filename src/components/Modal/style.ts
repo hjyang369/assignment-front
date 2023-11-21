@@ -37,6 +37,9 @@ export const S = {
     border-radius: 8px;
     border: 1px solid #c4c4c4;
     gap: 181px;
+    &::placeholder {
+      color: #c4c4c4;
+    }
   `,
 
   Buttons: styled.div`

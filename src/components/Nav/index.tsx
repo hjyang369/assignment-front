@@ -24,7 +24,11 @@ export default function Nav() {
           </div>
         );
       })}
-      <S.ModalBlack>{isOpen && <Modal />}</S.ModalBlack>
+      {isOpen && (
+        <S.ModalBlack>
+          <Modal />
+        </S.ModalBlack>
+      )}
     </S.Container>
   );
 }
