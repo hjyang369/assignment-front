@@ -13,26 +13,35 @@ const countryData = [
   { id: 8, name: "영국" },
 ];
 
-export default function Modal() {
+type modalProps = {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function Modal({ setIsOpen }: modalProps) {
   return (
     <S.Container>
-      <S.SelectValue>
-        <S.Title>헤드라인</S.Title>
-        <S.Input placeholder="검색하실 헤드라인을 입력해주세요."></S.Input>
-      </S.SelectValue>
-      <S.SelectValue>
-        <S.Title>날짜</S.Title>
-        <S.Input placeholder="날짜를 선택해주세요."></S.Input>
-      </S.SelectValue>
-      <S.SelectValue>
-        <S.Title>국가</S.Title>
-        <S.Buttons>
-          {countryData.map((country) => {
-            return <S.CountryBtn key={country.id}>{country.name}</S.CountryBtn>;
-          })}
-        </S.Buttons>
-      </S.SelectValue>
-      <Button onclick={null} text={"필터 적용하기"} />
+      <S.ModalBlack onClick={() => setIsOpen(false)} />
+      <S.ModalMain>
+        <S.SelectValue>
+          <S.Title>헤드라인</S.Title>
+          <S.Input placeholder="검색하실 헤드라인을 입력해주세요."></S.Input>
+        </S.SelectValue>
+        <S.SelectValue>
+          <S.Title>날짜</S.Title>
+          <S.Input placeholder="날짜를 선택해주세요."></S.Input>
+        </S.SelectValue>
+        <S.SelectValue>
+          <S.Title>국가</S.Title>
+          <S.Buttons>
+            {countryData.map((country) => {
+              return (
+                <S.CountryBtn key={country.id}>{country.name}</S.CountryBtn>
+              );
+            })}
+          </S.Buttons>
+        </S.SelectValue>
+        <Button onclick={null} text={"필터 적용하기"} />
+      </S.ModalMain>
     </S.Container>
   );
 }

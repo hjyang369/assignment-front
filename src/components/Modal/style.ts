@@ -2,18 +2,31 @@ import styled from "styled-components";
 
 export const S = {
   Container: styled.div`
-    background-color: #ffffff;
-    position: absolute;
-    width: 335px;
-    height: 480px;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  `,
+
+  ModalBlack: styled.div`
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  `,
+
+  ModalMain: styled.div`
+    background: white;
     padding: 20px;
-    border-radius: 16px;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 40px;
+    border-radius: 16px;
   `,
 
   SelectValue: styled.div`
