@@ -1,12 +1,12 @@
+import { ButtonHTMLAttributes } from "react";
 import { S } from "./style";
 //
-import { useNavigate } from "react-router";
 
-export default function Button() {
-  const navigate = useNavigate();
+type buttonProps = {
+  onclick: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
+  text: string;
+};
 
-  const movePage = (path: string) => {
-    navigate(path);
-  };
-  return <S.Buttons onClick={() => movePage("/")}>스크랩 하러 가기</S.Buttons>;
+export default function Button({ onclick, text }: buttonProps) {
+  return <S.Buttons onClick={onclick}>{text}</S.Buttons>;
 }
