@@ -2,6 +2,7 @@ import { S } from "./style";
 //
 import { Outlet } from "react-router-dom";
 import Nav from "../Nav";
+import Bottom from "components/Bottom";
 
 export default function Frame() {
   return (
@@ -9,6 +10,7 @@ export default function Frame() {
       <S.Main>
         <Nav />
         <Outlet />
+        <Bottom />
       </S.Main>
     </S.Container>
   );
