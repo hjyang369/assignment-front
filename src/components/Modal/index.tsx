@@ -28,7 +28,7 @@ export default function Modal({ setIsOpen }: modalProps) {
         </S.SelectValue>
         <S.SelectValue>
           <S.Title>날짜</S.Title>
-          <S.Input placeholder="날짜를 선택해주세요."></S.Input>
+          <S.Input type="date" placeholder="날짜를 선택해주세요."></S.Input>
         </S.SelectValue>
         <S.SelectValue>
           <S.Title>국가</S.Title>

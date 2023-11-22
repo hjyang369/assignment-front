@@ -1,37 +1,37 @@
-import { faFileLines, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { S } from "./style";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { ReactComponent as HomeIcon } from "../../asset/icon/home.svg";
+import { ReactComponent as ScrapIcon } from "../../asset/icon/scrap.svg";
 import { useState } from "react";
 
-const icons = [
-  { id: 1, icon: faHouse, text: "홈", path: "/" },
-  { id: 2, icon: faFileLines, text: "스크랩", path: "/scrap" },
-];
-
 export default function Bottom() {
-  const location = useLocation();
-  const isMainPage = location.pathname === "/";
+  const [currentTab, setCurrentTab] = useState("home");
 
   const navigate = useNavigate();
-  const movePage = (path: string) => {
+  const movePage = (name: string, path: string): void => {
     navigate(path);
+    setCurrentTab(name);
   };
 
   return (
     <S.Container>
-      {icons.map((data) => {
-        return (
-          <S.Btn
-            key={data.id}
-            onClick={() => movePage(data.path)}
-            $isMainPage={isMainPage}
-          >
-            <FontAwesomeIcon icon={data.icon} />
-            {data.text}
-          </S.Btn>
-        );
-      })}
+      <S.Btn
+        onClick={() => movePage("home", "/")}
+        $currentTab={currentTab === "home"}
+      >
+        <HomeIcon fill={currentTab === "home" ? "#FFFFFF" : "#6D6D6D"} />홈
+      </S.Btn>
+      <S.Btn
+        onClick={() => movePage("scrap", "/scrap")}
+        $currentTab={currentTab === "scrap"}
+      >
+        <ScrapIcon
+          width="24"
+          height="24"
+          stroke={currentTab === "scrap" ? "#FFFFFF" : "#6D6D6D"}
+        />
+        스크랩
+      </S.Btn>
     </S.Container>
   );
 }
