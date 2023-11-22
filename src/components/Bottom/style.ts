@@ -13,7 +13,7 @@ export const S = {
     justify-content: space-between;
   `,
   Btn: styled.button<{
-    $isMainPage: boolean;
+    $currentTab: boolean;
   }>`
     background-color: #000000;
     border: 0;
@@ -27,7 +27,7 @@ export const S = {
     line-height: 12px;
     letter-spacing: 0em;
     text-align: center;
-    color: ${(props) => (props.$isMainPage ? "#ffffff" : "#6D6D6D")};
+    color: ${(props) => (props.$currentTab ? "#ffffff" : "#6D6D6D")};
     svg {
       font-size: 2.4rem;
     }

@@ -1,21 +1,14 @@
-import {
-  IconDefinition,
-  faCalendarCheck,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { S } from "./style";
 
 type tagProps = {
-  iconName?: IconDefinition;
+  icon?: any;
   text: string;
 };
 
-export default function Tag({ iconName, text }: tagProps) {
+export default function Tag({ icon, text }: tagProps) {
   return (
     <S.Container>
-      <FontAwesomeIcon icon={iconName as IconProp} />
+      {icon}
       <p>{text}</p>
     </S.Container>
   );

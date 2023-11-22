@@ -7,13 +7,8 @@ export const S = {
     align-items: center;
     justify-content: center;
     gap: 5px;
-
-    svg {
-      width: 3.6rem;
-      height: 3.6rem;
-    }
   `,
-  AAAA: styled.p`
+  Text: styled.p`
     font-size: 18px;
     font-weight: 600;
     line-height: 28px;

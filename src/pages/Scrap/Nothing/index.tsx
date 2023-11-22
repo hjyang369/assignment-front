@@ -1,6 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { S } from "./style";
-import { faFileLines } from "@fortawesome/free-regular-svg-icons";
+import { ReactComponent as ScrapIcon } from "../../../asset/icon/scrap.svg";
 import Button from "components/Button";
 import { useNavigate } from "react-router";
 //
@@ -14,8 +13,8 @@ export default function Nothing() {
 
   return (
     <S.Container>
-      <FontAwesomeIcon icon={faFileLines} />
-      <S.AAAA>저장된 스크랩이 없습니다.</S.AAAA>
+      <ScrapIcon width="36" height="36" stroke="#6D6D6D" />
+      <S.Text>저장된 스크랩이 없습니다.</S.Text>
       <Button onclick={movePage} text={"스크랩 하러 가기"} />
     </S.Container>
   );

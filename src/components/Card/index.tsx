@@ -1,6 +1,6 @@
-import { faStar } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { S } from "./style";
+import { ReactComponent as StarIcon } from "../../asset/icon/star.svg";
+import { ReactComponent as CheckedStarIcon } from "../../asset/icon/checkedStar.svg";
 
 const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 interface cardDataProps {
@@ -21,7 +21,8 @@ export default function Card({ data }: cardDataProps) {
     <S.Container>
       <S.Top>
         <S.Title>{data.headline.main}</S.Title>
-        <FontAwesomeIcon icon={faStar} />
+        <StarIcon fill="#6D6D6D" />
+        <CheckedStarIcon fill="#FFB800" />
       </S.Top>
       <S.Bottom>
         <S.NameContainer>
