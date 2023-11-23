@@ -7,7 +7,7 @@ interface Article {
 
 interface ArticleStore {
   articleList: Article[];
-  idList: string[];
+  idList: any[];
   addArticle: (val: object) => void;
   removeArticle: (id: string) => void;
 }
@@ -20,6 +20,7 @@ export const useArticleStore = create<ArticleStore>()(
       addArticle: (val) => {
         set((prev) => ({
           articleList: [...prev.articleList, { content: val }],
+          idList: [...prev.idList, val._id],
         }));
       },
       removeArticle: (id) =>
@@ -27,6 +28,7 @@ export const useArticleStore = create<ArticleStore>()(
           articleList: prev.articleList.filter(
             (e: any) => e.content._id !== id
           ),
+          idList: prev.idList.filter((e: string) => e !== id),
         })),
     }),
     {

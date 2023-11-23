@@ -43,11 +43,9 @@ export default function Card({ data }: ArticlesData) {
   const saveArticles = () => {
     setIsSaved(true);
     addArticle({ _id, pub_date, headline, news_desk, byline, like: true });
-    // saveArticle({ _id, pub_date, headline, news_desk, byline, like: true });
   };
 
   const removeArticles = (id: string) => {
-    // removeArticle(id);
     removeArticle(id);
     setIsSaved(false);
   };
