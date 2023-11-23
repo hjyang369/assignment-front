@@ -9,7 +9,7 @@ export default function Tag({ icon, text }: tagProps) {
   return (
     <S.Container>
       {icon}
-      <p>{text}</p>
+      <S.Text>{text}</S.Text>
     </S.Container>
   );
 }

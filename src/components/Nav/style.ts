@@ -8,11 +8,10 @@ export const S = {
     background-color: #ffffff;
     display: flex;
     align-items: center;
-    justify-content: start;
-    gap: 1rem;
+    justify-content: space-around;
     width: 375px;
     height: 60px;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-    padding: 12px 20px;
+    padding: 12px 10px;
   `,
 };

@@ -5,7 +5,8 @@ export const S = {
     background-color: #f0f1f4;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    align-items: center;
+    padding: 10px;
     gap: 1rem;
   `,
 };

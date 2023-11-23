@@ -8,7 +8,7 @@ export const S = {
     flex-direction: column;
     justify-content: ${(props) => (props.$isEmpty ? "center" : "start")};
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     gap: 1rem;
     height: 100%;
   `,
