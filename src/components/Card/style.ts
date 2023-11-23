@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const S = {
-  Container: styled.div`
+  Link: styled(Link)`
+    color: black;
+    text-decoration: none;
     background-color: #fefefe;
     width: 335px;
     height: 104px;
@@ -12,6 +15,7 @@ export const S = {
     justify-content: space-between;
     gap: 8px;
   `,
+
   Top: styled.div`
     display: flex;
     align-items: start;
