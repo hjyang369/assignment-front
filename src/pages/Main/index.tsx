@@ -12,6 +12,7 @@ interface ArticlesData {
   news_desk: string;
   byline: object;
   like: boolean;
+  web_url: string;
 }
 
 export default function Main() {
@@ -21,6 +22,7 @@ export default function Main() {
   const loaderRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
   const { idList } = useArticleStore();
+
   const fetchData = async (pageNumber: number) => {
     setLoading(true);
     try {

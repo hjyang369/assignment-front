@@ -17,11 +17,14 @@ interface ArticlesData {
       person: [{ firstname: string }];
     };
     like: boolean;
+    web_url: string;
   };
 }
 
 export default function Card({ data }: ArticlesData) {
-  const { _id, pub_date, headline, news_desk, byline, like } = { ...data };
+  const { _id, pub_date, headline, news_desk, byline, like, web_url } = {
+    ...data,
+  };
   const [isSaved, setIsSaved] = useState(false);
   const { addArticle, removeArticle } = useArticleStore();
 
@@ -51,7 +54,7 @@ export default function Card({ data }: ArticlesData) {
   };
 
   return (
-    <S.Container>
+    <S.Link to={web_url}>
       <S.Top>
         <S.Title>{headline.main}</S.Title>
         {isSaved ? (
@@ -69,6 +72,6 @@ export default function Card({ data }: ArticlesData) {
         </S.NameContainer>
         <S.DateData>{formattedDate}</S.DateData>
       </S.Bottom>
-    </S.Container>
+    </S.Link>
   );
 }
