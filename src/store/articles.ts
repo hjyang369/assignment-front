@@ -22,14 +22,17 @@ export const useArticleStore = create<ArticleStore>()(
           articleList: [...prev.articleList, { content: val }],
           idList: [...prev.idList, val._id],
         }));
+        alert("기사를 스크랩했습니다.");
       },
-      removeArticle: (id) =>
+      removeArticle: (id) => {
         set((prev) => ({
           articleList: prev.articleList.filter(
             (e: any) => e.content._id !== id
           ),
           idList: prev.idList.filter((e: string) => e !== id),
-        })),
+        }));
+        alert("기사를 삭제 했습니다.");
+      },
     }),
     {
       name: "article-storage",
