@@ -3,26 +3,37 @@ import { S } from "./style";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Card from "../../components/Card";
+import { useArticleStore } from "store/articles";
 
-type Articles = {
-  [key: string]: string;
-};
+interface ArticlesData {
+  _id: string;
+  pub_date: string;
+  headline: object;
+  news_desk: string;
+  byline: object;
+  like: boolean;
+}
 
 export default function Main() {
-  const [articleData, setArticleData] = useState<Articles[]>([]);
+  const [articleData, setArticleData] = useState<ArticlesData[]>([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
-
+  const { idList } = useArticleStore();
   const fetchData = async (pageNumber: number) => {
     setLoading(true);
     try {
       const response = await axios.get(
         `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=8MeO1rSj1FcMC9n8kbDBTUtw0EgduciL&page=${pageNumber}`
       );
-      const newData: Articles[] = response.data?.response?.docs || [];
-      setArticleData((prevData) => [...prevData, ...newData]);
+      const newData: ArticlesData[] = response.data?.response?.docs || [];
+
+      const UpdateData = newData.map((item) => {
+        const isScraped = idList?.includes(item._id);
+        return { ...item, like: isScraped };
+      });
+      await setArticleData((prevData) => [...prevData, ...UpdateData]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error("Error fetching data:", error);
