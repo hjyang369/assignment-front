@@ -8,12 +8,12 @@ interface NavStore {
   textList: Text[];
   changeText: (val: object) => void;
 }
-export const useFilterStore = create<NavStore>()(
+export const useHomeFilterStore = create<NavStore>()(
   devtools((set) => ({
     textList: {
       title: "",
       date: "",
-      country: "",
+      country: [],
     },
 
     changeText: (val) => {

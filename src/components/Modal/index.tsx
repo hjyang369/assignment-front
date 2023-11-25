@@ -2,26 +2,29 @@ import Button from "components/Button";
 import { S } from "./style";
 import useInputValue from "hooks/useInputValue";
 import { useState } from "react";
-import { useFilterStore } from "store/filter";
 
 const countryData = [
-  { id: 1, name: "대한민국" },
-  { id: 2, name: "중국" },
-  { id: 3, name: "일본" },
-  { id: 4, name: "미국" },
-  { id: 5, name: "북한" },
-  { id: 6, name: "러시아" },
-  { id: 7, name: "프랑스" },
-  { id: 8, name: "영국" },
+  { id: 1, name: "대한민국", value: "korea" },
+  { id: 2, name: "중국", value: "china" },
+  { id: 3, name: "일본", value: "Japan" },
+  { id: 4, name: "미국", value: "USA" },
+  { id: 5, name: "북한", value: "North Korea" },
+  { id: 6, name: "러시아", value: "Russia" },
+  { id: 7, name: "프랑스", value: "France" },
+  { id: 8, name: "영국", value: "UK" },
 ];
 
 type modalProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  changeText: ({}) => void;
+  setArticleData: ([]) => void;
 };
 
-// type Country = [string | undefined];
-
-export default function Modal({ setIsOpen }: modalProps) {
+export default function Modal({
+  setIsOpen,
+  changeText,
+  setArticleData,
+}: modalProps) {
   const initInputValue = {
     headLine: "",
   };
@@ -30,13 +33,16 @@ export default function Modal({ setIsOpen }: modalProps) {
   const [isfocus, setIsfocus] = useState(false);
 
   const { inputValue, handleInput } = useInputValue(initInputValue);
-  const { changeText } = useFilterStore();
 
-  const selectCountry = (name: string, e: any) => {
-    if (countries.includes(name)) {
-      setCountries(countries.filter((country) => country !== name));
+  const selectCountry = (name: string, idx: number) => {
+    const isDuplicate = countries.some((country) => country.name === name);
+    if (!isDuplicate) {
+      setCountries((prevCountries) => [...prevCountries, countryData[idx]]);
     } else {
-      setCountries([...countries, name]);
+      const updatedCountries = countries.filter(
+        (country) => country.name !== name
+      );
+      setCountries(updatedCountries);
     }
   };
 
@@ -45,17 +51,12 @@ export default function Modal({ setIsOpen }: modalProps) {
   };
 
   const submitData = () => {
-    let country = "";
-    country = `${countries[0] ? countries[0] : ""}${
-      countries.length >= 2 ? ` 외 ${countries.length - 1}개` : ""
-    }`;
-
     changeText({
       title: inputValue.headLine,
       date: date,
-      country: country !== "" ? country : "",
+      country: countries,
     });
-
+    setArticleData([]);
     setIsOpen(false);
   };
 
@@ -87,13 +88,15 @@ export default function Modal({ setIsOpen }: modalProps) {
         <S.SelectValue>
           <S.Title>국가</S.Title>
           <S.Buttons>
-            {countryData.map((country) => {
+            {countryData.map((country, idx) => {
               return (
                 <S.CountryBtn
                   key={country.id}
                   htmlFor={country.name}
-                  onClick={(e) => selectCountry(country.name, e)}
-                  $isSelected={countries.includes(country.name)}
+                  onClick={() => selectCountry(country.name, idx)}
+                  $isSelected={countries.some(
+                    (selectedCountry) => selectedCountry.name === country.name
+                  )}
                 >
                   {country.name}
                   <input

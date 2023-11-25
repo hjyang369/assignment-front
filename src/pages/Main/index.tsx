@@ -1,8 +1,10 @@
 import { S } from "./style";
 //
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Card from "../../components/Card";
+import { useHomeFilterStore } from "store/HomeFilter";
+import Nav from "components/Nav";
+import axios from "axios";
 import { useArticleStore } from "store/articles";
 
 interface ArticlesData {
@@ -18,38 +20,51 @@ interface ArticlesData {
 export default function Main() {
   const [articleData, setArticleData] = useState<ArticlesData[]>([]);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const { textList, changeText } = useHomeFilterStore();
   const loaderRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
+  const [loading, setLoading] = useState(false);
   const { idList } = useArticleStore();
-
-  const fetchData = async (pageNumber: number) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=8MeO1rSj1FcMC9n8kbDBTUtw0EgduciL&page=${pageNumber}`
-      );
-      const newData: ArticlesData[] = response.data?.response?.docs || [];
-
-      const UpdateData = newData.map((item) => {
-        const isScraped = idList?.includes(item._id);
-        return { ...item, like: isScraped };
-      });
-      await setArticleData((prevData) => [...prevData, ...UpdateData]);
-      setPage((prevPage) => prevPage + 1);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const REACT_APP_NYT_API_KEY = process.env.REACT_APP_NYT_API_KEY;
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
     if (target.isIntersecting) {
       setLoading(true);
+      if (articleData.length > 0 && !loading) {
+        setPage((prev) => prev + 1);
+      }
     }
   };
+
+  useEffect(() => {
+    const date = Number(textList.date.split("-").join(""));
+    const countriesArray = textList.country.map((country) => country.value);
+    const countries = countriesArray.join(" AND ");
+    const apiUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?&api-key=${REACT_APP_NYT_API_KEY}`;
+
+    axios
+      .get(
+        `${apiUrl}&page=${page}${
+          textList.title && `&fq=headline:${textList.title}`
+        }${textList.date && `&begin_date=${date}&end_date=${date}`}${
+          textList.country.length > 0 ? `&q=${countries}` : ""
+        }`
+      )
+      .then((res) => {
+        const newData: ArticlesData[] = res.data?.response?.docs || [];
+
+        const UpdateData = newData.map((item) => {
+          const isScraped = idList?.includes(item._id);
+          return { ...item, like: isScraped };
+        });
+        setArticleData([...articleData, ...UpdateData]);
+      })
+      .catch((error) => console.error("Error fetching data:", error))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [textList, page]);
 
   useEffect(() => {
     const options = {
@@ -69,20 +84,20 @@ export default function Main() {
         observer.current.disconnect();
       }
     };
-  }, []);
-
-  useEffect(() => {
-    if (loading) {
-      fetchData(page);
-    }
-  }, [loading]);
+  }, [articleData]);
 
   return (
     <S.Container>
+      <Nav
+        textList={textList}
+        changeText={changeText}
+        setArticleData={setArticleData}
+      />
       {articleData.map((data) => {
         return <Card key={data._id} data={data} />;
       })}
       {loading && <p>loading</p>}
+
       <div
         ref={loaderRef}
         style={{ height: "20px", background: "transparent" }}

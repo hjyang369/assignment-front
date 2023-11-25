@@ -4,11 +4,22 @@ import Modal from "components/Modal";
 import { useState } from "react";
 import { ReactComponent as CalenderIcon } from "../../asset/icon/calender.svg";
 import { ReactComponent as SearchIcon } from "../../asset/icon/search.svg";
-import { useFilterStore } from "store/filter";
 
-export default function Nav() {
+interface Text {
+  textList: {
+    title: string;
+    date: string;
+    country: string;
+  };
+  changeText: () => void;
+  setArticleData: () => void;
+}
+export default function Nav({ textList, changeText, setArticleData }: Text) {
   const [isOpen, setIsOpen] = useState(false);
-  const { textList } = useFilterStore();
+
+  const country = `${textList.country[0] ? textList.country[0].name : ""}${
+    textList.country.length >= 2 ? ` 외 ${textList.country.length - 1}개` : ""
+  }`;
 
   const navIcon = [
     {
@@ -24,7 +35,7 @@ export default function Nav() {
     {
       id: 3,
       icon: undefined,
-      text: textList.country ? textList.country : "전체 국가",
+      text: textList.country.length > 0 ? country : "전체 국가",
     },
   ];
 
@@ -37,7 +48,13 @@ export default function Nav() {
           </div>
         );
       })}
-      {isOpen && <Modal setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <Modal
+          setIsOpen={setIsOpen}
+          changeText={changeText}
+          setArticleData={setArticleData}
+        />
+      )}
     </S.Container>
   );
 }
