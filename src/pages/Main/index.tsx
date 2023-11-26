@@ -65,7 +65,13 @@ export default function Main() {
           setArticleData([...articleData, ...UpdateData]);
         }
       })
-      .catch((error) => console.error("Error fetching data:", error))
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        if (error.response && error.response.status === 429) {
+          alert("조금 뒤에 다시 요청해주세요.");
+          return; // 요청 중단
+        }
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -102,7 +108,9 @@ export default function Main() {
         return <Card key={data._id} data={data} />;
       })}
 
-      {noMoreData && <p>조건에 맞는 기사가 없습니다</p>}
+      {noMoreData && articleData.length === 0 && (
+        <p>조건에 맞는 기사가 없습니다</p>
+      )}
       {loading && <p>loading</p>}
 
       <div

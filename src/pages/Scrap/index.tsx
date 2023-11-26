@@ -19,8 +19,9 @@ export default function Scrap() {
     let filteredResult = [...articleList];
 
     if (textList.title) {
+      const lowerCaseTitle = textList.title.toLowerCase();
       filteredResult = filteredResult.filter((article) =>
-        article.content.headline.main.includes(textList.title)
+        article.content.headline.main.toLowerCase().includes(lowerCaseTitle)
       );
     }
     if (textList.date) {
