@@ -4,7 +4,11 @@ import Button from "components/Button";
 import { useNavigate } from "react-router";
 //
 
-export default function Nothing() {
+type nothingProps = {
+  text: string;
+};
+
+export default function Nothing({ text }: nothingProps) {
   const navigate = useNavigate();
 
   const movePage = (): void => {
@@ -14,7 +18,7 @@ export default function Nothing() {
   return (
     <S.Container>
       <ScrapIcon width="36" height="36" stroke="#6D6D6D" />
-      <S.Text>저장된 스크랩이 없습니다.</S.Text>
+      <S.Text>{text}</S.Text>
       <Button onclick={movePage} text={"스크랩 하러 가기"} />
     </S.Container>
   );

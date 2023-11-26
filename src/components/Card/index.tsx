@@ -18,11 +18,21 @@ interface ArticlesData {
     };
     like: boolean;
     web_url: string;
+    abstract: string;
   };
 }
 
 export default function Card({ data }: ArticlesData) {
-  const { _id, pub_date, headline, news_desk, byline, like, web_url } = {
+  const {
+    _id,
+    pub_date,
+    headline,
+    news_desk,
+    byline,
+    like,
+    web_url,
+    abstract,
+  } = {
     ...data,
   };
   const [isSaved, setIsSaved] = useState(false);
@@ -53,6 +63,7 @@ export default function Card({ data }: ArticlesData) {
       byline,
       like: true,
       web_url,
+      abstract,
     });
   };
 

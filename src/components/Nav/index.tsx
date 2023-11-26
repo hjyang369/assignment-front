@@ -12,9 +12,9 @@ interface Text {
     country: string;
   };
   changeText: () => void;
-  setArticleData: () => void;
+  resetData?: () => void;
 }
-export default function Nav({ textList, changeText, setArticleData }: Text) {
+export default function Nav({ textList, changeText, resetData }: Text) {
   const [isOpen, setIsOpen] = useState(false);
 
   const country = `${textList.country[0] ? textList.country[0].name : ""}${
@@ -52,7 +52,7 @@ export default function Nav({ textList, changeText, setArticleData }: Text) {
         <Modal
           setIsOpen={setIsOpen}
           changeText={changeText}
-          setArticleData={setArticleData}
+          resetData={resetData}
         />
       )}
     </S.Container>

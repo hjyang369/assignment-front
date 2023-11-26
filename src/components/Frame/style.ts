@@ -9,12 +9,9 @@ export const S = {
     justify-content: center;
   `,
   Main: styled.div`
-    /* display: flex;
-    flex-direction: column; */
-    padding: 60px 0 85px 0;
+    padding: 70px 0 95px 0;
     width: 375px;
-    height: 100%;
-    overflow: scroll;
+    overflow: auto;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 8px;
     border-radius: 30px;
   `,

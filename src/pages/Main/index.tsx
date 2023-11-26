@@ -15,6 +15,7 @@ interface ArticlesData {
   byline: object;
   like: boolean;
   web_url: string;
+  abstract: string;
 }
 
 export default function Main() {
@@ -91,7 +92,7 @@ export default function Main() {
       <Nav
         textList={textList}
         changeText={changeText}
-        setArticleData={setArticleData}
+        resetData={setArticleData}
       />
       {articleData.map((data) => {
         return <Card key={data._id} data={data} />;

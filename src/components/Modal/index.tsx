@@ -2,28 +2,29 @@ import Button from "components/Button";
 import { S } from "./style";
 import useInputValue from "hooks/useInputValue";
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 const countryData = [
-  { id: 1, name: "대한민국", value: "korea" },
-  { id: 2, name: "중국", value: "china" },
-  { id: 3, name: "일본", value: "Japan" },
-  { id: 4, name: "미국", value: "USA" },
-  { id: 5, name: "북한", value: "North Korea" },
-  { id: 6, name: "러시아", value: "Russia" },
-  { id: 7, name: "프랑스", value: "France" },
-  { id: 8, name: "영국", value: "UK" },
+  { id: 1, name: "대한민국", value: ["Korea", "Korean"] },
+  { id: 2, name: "중국", value: ["China", "Chinese"] },
+  { id: 3, name: "일본", value: ["Japan", "Japanese"] },
+  { id: 4, name: "미국", value: ["USA", "American", "America"] },
+  { id: 5, name: "북한", value: ["North Korea", "North Korean"] },
+  { id: 6, name: "러시아", value: ["Russia", "Russian"] },
+  { id: 7, name: "프랑스", value: ["France", "French"] },
+  { id: 8, name: "영국", value: ["UK", "Englishman"] },
 ];
 
 type modalProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   changeText: ({}) => void;
-  setArticleData: ([]) => void;
+  resetData?: ([]) => void;
 };
 
 export default function Modal({
   setIsOpen,
   changeText,
-  setArticleData,
+  resetData,
 }: modalProps) {
   const initInputValue = {
     headLine: "",
@@ -31,6 +32,8 @@ export default function Modal({
   const [countries, setCountries] = useState([]);
   const [date, setDate] = useState("");
   const [isfocus, setIsfocus] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   const { inputValue, handleInput } = useInputValue(initInputValue);
 
@@ -56,7 +59,7 @@ export default function Modal({
       date: date,
       country: countries,
     });
-    setArticleData([]);
+    isHome && resetData([]);
     setIsOpen(false);
   };
 
