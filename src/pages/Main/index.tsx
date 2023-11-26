@@ -26,6 +26,7 @@ export default function Main() {
   const observer = useRef<IntersectionObserver | null>(null);
   const [loading, setLoading] = useState(false);
   const { idList } = useArticleStore();
+  const [noMoreData, setNoMoreData] = useState(false);
   const REACT_APP_NYT_API_KEY = process.env.REACT_APP_NYT_API_KEY;
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
@@ -54,12 +55,15 @@ export default function Main() {
       )
       .then((res) => {
         const newData: ArticlesData[] = res.data?.response?.docs || [];
-
-        const UpdateData = newData.map((item) => {
-          const isScraped = idList?.includes(item._id);
-          return { ...item, like: isScraped };
-        });
-        setArticleData([...articleData, ...UpdateData]);
+        if (newData.length === 0) {
+          setNoMoreData(true);
+        } else {
+          const UpdateData = newData.map((item) => {
+            const isScraped = idList?.includes(item._id);
+            return { ...item, like: isScraped };
+          });
+          setArticleData([...articleData, ...UpdateData]);
+        }
       })
       .catch((error) => console.error("Error fetching data:", error))
       .finally(() => {
@@ -97,6 +101,8 @@ export default function Main() {
       {articleData.map((data) => {
         return <Card key={data._id} data={data} />;
       })}
+
+      {noMoreData && <p>조건에 맞는 기사가 없습니다</p>}
       {loading && <p>loading</p>}
 
       <div
