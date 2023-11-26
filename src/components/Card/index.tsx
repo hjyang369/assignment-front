@@ -18,11 +18,21 @@ interface ArticlesData {
     };
     like: boolean;
     web_url: string;
+    abstract: string;
   };
 }
 
 export default function Card({ data }: ArticlesData) {
-  const { _id, pub_date, headline, news_desk, byline, like, web_url } = {
+  const {
+    _id,
+    pub_date,
+    headline,
+    news_desk,
+    byline,
+    like,
+    web_url,
+    abstract,
+  } = {
     ...data,
   };
   const [isSaved, setIsSaved] = useState(false);
@@ -45,7 +55,16 @@ export default function Card({ data }: ArticlesData) {
 
   const saveArticles = () => {
     setIsSaved(true);
-    addArticle({ _id, pub_date, headline, news_desk, byline, like: true });
+    addArticle({
+      _id,
+      pub_date,
+      headline,
+      news_desk,
+      byline,
+      like: true,
+      web_url,
+      abstract,
+    });
   };
 
   const removeArticles = (id: string) => {
@@ -54,9 +73,9 @@ export default function Card({ data }: ArticlesData) {
   };
 
   return (
-    <S.Link to={web_url}>
+    <S.Container>
       <S.Top>
-        <S.Title>{headline.main}</S.Title>
+        <S.Link to={web_url}>{headline.main}</S.Link>
         {isSaved ? (
           <CheckedStarIcon onClick={() => removeArticles(_id)} fill="#FFB800" />
         ) : (
@@ -72,6 +91,6 @@ export default function Card({ data }: ArticlesData) {
         </S.NameContainer>
         <S.DateData>{formattedDate}</S.DateData>
       </S.Bottom>
-    </S.Link>
+    </S.Container>
   );
 }

@@ -49,7 +49,19 @@ export const S = {
     padding: 10px 20px;
     border-radius: 8px;
     border: 1px solid #c4c4c4;
-    gap: 181px;
+
+    &::placeholder {
+      color: #c4c4c4;
+    }
+  `,
+
+  DateLabel: styled.label`
+    width: 295px;
+    height: 44px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #c4c4c4;
+
     &::placeholder {
       color: #c4c4c4;
     }
@@ -62,13 +74,25 @@ export const S = {
     width: 295px;
     height: 76px;
   `,
-  CountryBtn: styled.button`
-    background-color: #ffffff;
-    /* #82B0F4 */
+  CountryBtn: styled.label<{
+    $isSelected: boolean;
+  }>`
+    background-color: ${(props) => (props.$isSelected ? "#82B0F4" : "#ffffff")};
     height: 34px;
     padding: 6px 12px 4px 12px;
     border-radius: 30px;
     border: 1px solid #f2f2f2;
-    gap: 4px;
+    gap: 8px;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    text-align: right;
+    color: ${(props) => (props.$isSelected ? "#f2f2f2" : "#6D6D6D")};
+
+    input {
+      display: none;
+    }
   `,
 };

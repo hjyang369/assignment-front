@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const S = {
-  Link: styled(Link)`
-    color: black;
-    text-decoration: none;
+  Container: styled.div`
     background-color: #fefefe;
     width: 335px;
     height: 104px;
@@ -30,7 +28,9 @@ export const S = {
     }
   `,
 
-  Title: styled.header`
+  Link: styled(Link)`
+    color: black;
+    text-decoration: none;
     width: 270px;
     font-size: 18px;
     font-weight: 600;
