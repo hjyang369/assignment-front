@@ -60,6 +60,11 @@ export const S = {
     font-weight: 400;
     line-height: 20px;
     text-align: left;
+    width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
   `,
 
   DateData: styled.p`

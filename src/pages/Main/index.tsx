@@ -6,12 +6,13 @@ import { useHomeFilterStore } from "store/HomeFilter";
 import Nav from "components/Nav";
 import axios from "axios";
 import { useArticleStore } from "store/articles";
+import Loading from "components/Card/Loding";
 
 interface ArticlesData {
   _id: string;
   pub_date: string;
   headline: object;
-  news_desk: string;
+  source: string;
   byline: object;
   like: boolean;
   web_url: string;
@@ -111,7 +112,7 @@ export default function Main() {
       {noMoreData && articleData.length === 0 && (
         <p>조건에 맞는 기사가 없습니다</p>
       )}
-      {loading && <p>loading</p>}
+      {loading && <Loading isEmpty={articleData.length === 0} />}
 
       <div
         ref={loaderRef}

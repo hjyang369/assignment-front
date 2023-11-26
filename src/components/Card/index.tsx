@@ -12,7 +12,7 @@ interface ArticlesData {
     headline: {
       main: string;
     };
-    news_desk: string;
+    source: string;
     byline: {
       person: [{ firstname: string }];
     };
@@ -23,16 +23,7 @@ interface ArticlesData {
 }
 
 export default function Card({ data }: ArticlesData) {
-  const {
-    _id,
-    pub_date,
-    headline,
-    news_desk,
-    byline,
-    like,
-    web_url,
-    abstract,
-  } = {
+  const { _id, pub_date, headline, source, byline, like, web_url, abstract } = {
     ...data,
   };
   const [isSaved, setIsSaved] = useState(false);
@@ -59,7 +50,7 @@ export default function Card({ data }: ArticlesData) {
       _id,
       pub_date,
       headline,
-      news_desk,
+      source,
       byline,
       like: true,
       web_url,
@@ -84,10 +75,14 @@ export default function Card({ data }: ArticlesData) {
       </S.Top>
       <S.Bottom>
         <S.NameContainer>
-          <S.NameData>{news_desk}</S.NameData>
-          {byline.person.map((name, idx) => {
-            return <S.NameData key={idx}>{name.firstname} 기자</S.NameData>;
-          })}
+          <S.NameData>{source}</S.NameData>
+          <S.NameData>
+            {byline.person[0]?.firstname
+              ? byline.person[0]?.firstname + " 기자"
+              : "무명 기자"}
+            {byline.person.length > 1 &&
+              " 외 " + (byline.person.length - 1) + "인"}
+          </S.NameData>
         </S.NameContainer>
         <S.DateData>{formattedDate}</S.DateData>
       </S.Bottom>
