@@ -2,17 +2,22 @@ import styled from "styled-components";
 
 export const S = {
   Container: styled.div`
-    width: 100vw;
+    max-width: 560px;
+    min-height: 100%;
+    margin: 0 auto;
+    width: 100%;
     height: 100vh;
     background-color: #f0f1f4;
     display: flex;
     justify-content: center;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 0 20px #0000000d;
   `,
   Main: styled.div`
-    padding: 70px 0 95px 0;
-    width: 375px;
-    overflow: auto;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 8px;
     border-radius: 30px;
+    padding: 60px 0 95px 0;
+    width: 100%;
+    height: 100%;
   `,
 };

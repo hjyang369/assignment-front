@@ -9,7 +9,8 @@ export const S = {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 375px;
+    max-width: 560px;
+    width: 100%;
     height: 60px;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     padding: 12px 10px;

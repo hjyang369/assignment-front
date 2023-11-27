@@ -1,7 +1,7 @@
 import { S } from "./style";
 //
 import Card from "../../components/Card";
-import Nothing from "./Nothing";
+import Nothing from "../../components/Nothing";
 import { useArticleStore } from "store/articles";
 import Nav from "components/Nav";
 import { useScrapFilterStore } from "store/scrapFilter";
@@ -43,7 +43,7 @@ export default function Scrap() {
   }, [textList, articleList]);
 
   return (
-    <S.Container>
+    <S.Container $isEmpty={isEmpty || isfilterEmpty}>
       <Nav textList={textList} changeText={changeText} resetData={null} />
       <S.Cards $isEmpty={isEmpty || isfilterEmpty}>
         {!isEmpty ? (

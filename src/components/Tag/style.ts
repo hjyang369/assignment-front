@@ -14,7 +14,7 @@ export const S = {
   `,
 
   Text: styled.p`
-    font-size: 14px;
+    font-size: 1.4rem;
     max-width: 90px;
     overflow: hidden;
     white-space: nowrap;

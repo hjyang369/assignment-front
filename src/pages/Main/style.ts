@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 export const S = {
-  Container: styled.div`
-    background-color: #f0f1f4;
+  Container: styled.div<{
+    $isEmpty: boolean;
+  }>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
-    gap: 1rem;
+    gap: 10px;
+    padding: 20px;
+    height: ${(props) => (props.$isEmpty ? "100%" : "")};
+    min-height: 100%;
+    overflow: scroll;
   `,
 };

@@ -3,11 +3,13 @@ import styled from "styled-components";
 export const S = {
   Container: styled.div`
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
+    z-index: 1;
     background-color: #000000;
-    width: 375px;
+    max-width: 560px;
+    width: 100%;
     height: 85px;
-    padding: 20px 80px 20px 80px;
+    padding: 20px 80px;
     border-radius: 30px;
     display: flex;
     justify-content: space-between;
@@ -21,11 +23,10 @@ export const S = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.4rem;
+    gap: 4px;
     font-size: 1rem;
     font-weight: 600;
     line-height: 12px;
-    letter-spacing: 0em;
     text-align: center;
     color: ${(props) => (props.$currentTab ? "#ffffff" : "#6D6D6D")};
     svg {
