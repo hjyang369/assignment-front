@@ -36,7 +36,7 @@ export const S = {
   `,
 
   Title: styled.p`
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: 600;
     line-height: 24px;
     letter-spacing: -0.05em;
@@ -84,7 +84,7 @@ export const S = {
     border: 1px solid #f2f2f2;
     gap: 8px;
 
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 400;
     line-height: 24px;
     letter-spacing: -0.04em;

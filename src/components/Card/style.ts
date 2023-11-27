@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const S = {
   Container: styled.div`
     background-color: #fefefe;
-    width: 335px;
+    width: 100%;
     height: 104px;
     padding: 10px 20px 10px 20px;
     border-radius: 8px;
@@ -32,7 +32,7 @@ export const S = {
     color: black;
     text-decoration: none;
     width: 270px;
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: 600;
     line-height: 28px;
     text-align: left;
@@ -56,7 +56,7 @@ export const S = {
   `,
 
   NameData: styled.p`
-    font-size: 13px;
+    font-size: 1.3rem;
     font-weight: 400;
     line-height: 20px;
     text-align: left;
@@ -68,7 +68,7 @@ export const S = {
   `,
 
   DateData: styled.p`
-    font-size: 13px;
+    font-size: 1.3rem;
     font-weight: 400;
     line-height: 20px;
     text-align: left;

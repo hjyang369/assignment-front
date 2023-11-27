@@ -3,18 +3,19 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
     *,:after,:before {
         box-sizing: border-box;
+        position: relative;
+        z-index: 0;
     }
     * {
         margin: 0;
     }
-    body,html {
+    body,html, #root {
         height: 100%;
-        background-color: #fffefc;
+        width: 100%;
         font-size: 62.5%;
+
     }
     body {
-        -webkit-font-smoothing: antialiased;
-        font-family: 'Pretendard', sans-serif;
         line-height: 1.5;
     }
 

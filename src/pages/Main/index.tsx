@@ -7,6 +7,7 @@ import Nav from "components/Nav";
 import axios from "axios";
 import { useArticleStore } from "store/articles";
 import Loading from "components/Card/Loding";
+import Nothing from "components/Nothing";
 
 interface ArticlesData {
   _id: string;
@@ -32,7 +33,7 @@ export default function Main() {
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting) {
+    if (target.isIntersecting && !loading && !noMoreData) {
       setLoading(true);
       if (articleData.length > 0 && !loading) {
         setPage((prev) => prev + 1);
@@ -99,24 +100,23 @@ export default function Main() {
   }, [articleData]);
 
   return (
-    <S.Container>
+    <S.Container $isEmpty={noMoreData && articleData.length === 0}>
       <Nav
         textList={textList}
         changeText={changeText}
         resetData={setArticleData}
       />
+
       {articleData.map((data) => {
         return <Card key={data._id} data={data} />;
       })}
-
       {noMoreData && articleData.length === 0 && (
-        <p>조건에 맞는 기사가 없습니다</p>
+        <Nothing text={"조건에 맞는 기사가 없습니다."} isHome />
       )}
       {loading && <Loading isEmpty={articleData.length === 0} />}
-
       <div
         ref={loaderRef}
-        style={{ height: "20px", background: "transparent" }}
+        style={{ height: "100px", background: "transparent" }}
       />
     </S.Container>
   );
