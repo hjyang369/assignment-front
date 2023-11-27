@@ -1,27 +1,17 @@
 import { S } from "./style";
 //
 import { useEffect, useRef, useState } from "react";
-import Card from "../../components/Card";
-import { useHomeFilterStore } from "store/HomeFilter";
-import Nav from "components/Nav";
 import axios from "axios";
 import { useArticleStore } from "store/articles";
-import Loading from "components/Card/Loding";
+import { useHomeFilterStore } from "store/HomeFilter";
+import { ArticlesDataType } from "../../types/article";
+import Card from "../../components/Card";
+import Nav from "components/Nav";
+import Loading from "components/Card/Loading";
 import Nothing from "components/Nothing";
 
-interface ArticlesData {
-  _id: string;
-  pub_date: string;
-  headline: object;
-  source: string;
-  byline: object;
-  like: boolean;
-  web_url: string;
-  abstract: string;
-}
-
 export default function Main() {
-  const [articleData, setArticleData] = useState<ArticlesData[]>([]);
+  const [articleData, setArticleData] = useState<ArticlesDataType[]>([]);
   const [page, setPage] = useState(0);
   const { textList, changeText } = useHomeFilterStore();
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -56,7 +46,7 @@ export default function Main() {
         }`
       )
       .then((res) => {
-        const newData: ArticlesData[] = res.data?.response?.docs || [];
+        const newData: ArticlesDataType[] = res.data?.response?.docs || [];
         if (newData.length === 0) {
           setNoMoreData(true);
         } else {
@@ -71,7 +61,7 @@ export default function Main() {
         console.error("Error fetching data:", error);
         if (error.response && error.response.status === 429) {
           alert("조금 뒤에 다시 요청해주세요.");
-          return; // 요청 중단
+          return;
         }
       })
       .finally(() => {
@@ -105,13 +95,14 @@ export default function Main() {
         textList={textList}
         changeText={changeText}
         resetData={setArticleData}
+        isMain
       />
 
       {articleData.map((data) => {
-        return <Card key={data._id} data={data} />;
+        return <Card key={data._id} data={{ ...data }} />;
       })}
       {noMoreData && articleData.length === 0 && (
-        <Nothing text={"조건에 맞는 기사가 없습니다."} isHome />
+        <Nothing text={"조건에 맞는 기사가 없습니다."} isMain />
       )}
       {loading && <Loading isEmpty={articleData.length === 0} />}
       <div

@@ -1,12 +1,12 @@
 import { S } from "./style";
-import { useLocation, useNavigate } from "react-router";
 import { ReactComponent as HomeIcon } from "../../asset/icon/home.svg";
 import { ReactComponent as ScrapIcon } from "../../asset/icon/scrap.svg";
-import { useState } from "react";
+//
+import { useLocation, useNavigate } from "react-router";
 
 export default function Bottom() {
   const location = useLocation();
-  const isHome = location.pathname === "/";
+  const isMain = location.pathname === "/";
   const isScrap = location.pathname === "/scrap";
 
   const navigate = useNavigate();
@@ -16,8 +16,8 @@ export default function Bottom() {
 
   return (
     <S.Container>
-      <S.Btn onClick={() => movePage("/")} $currentTab={isHome}>
-        <HomeIcon fill={isHome ? "#FFFFFF" : "#6D6D6D"} />홈
+      <S.Btn onClick={() => movePage("/")} $currentTab={isMain}>
+        <HomeIcon fill={isMain ? "#FFFFFF" : "#6D6D6D"} />홈
       </S.Btn>
       <S.Btn onClick={() => movePage("/scrap")} $currentTab={isScrap}>
         <ScrapIcon

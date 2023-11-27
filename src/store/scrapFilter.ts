@@ -1,13 +1,12 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
+import { TextListType } from "../types/article";
 
-interface Text {
-  [key: string]: string;
-}
 interface NavStore {
-  textList: Text[];
-  changeText: (val: object) => void;
+  textList: TextListType;
+  changeText: (data: TextListType) => void;
 }
+
 export const useScrapFilterStore = create<NavStore>()(
   devtools((set) => ({
     textList: {

@@ -1,31 +1,22 @@
 import { S } from "./style";
 import { ReactComponent as StarIcon } from "../../asset/icon/star.svg";
 import { ReactComponent as CheckedStarIcon } from "../../asset/icon/checkedStar.svg";
+//
 import { useEffect, useState } from "react";
 import { useArticleStore } from "store/articles";
+import { ArticlesDataType } from "../../types/article";
 
 const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-interface ArticlesData {
-  data: {
-    _id: string;
-    pub_date: string;
-    headline: {
-      main: string;
-    };
-    source: string;
-    byline: {
-      person: [{ firstname: string }];
-    };
-    like: boolean;
-    web_url: string;
-    abstract: string;
-  };
-}
 
-export default function Card({ data }: ArticlesData) {
+type cardProps = {
+  data: ArticlesDataType;
+};
+
+export default function Card({ data }: cardProps) {
   const { _id, pub_date, headline, source, byline, like, web_url, abstract } = {
     ...data,
   };
+
   const [isSaved, setIsSaved] = useState(false);
   const { addArticle, removeArticle } = useArticleStore();
 
@@ -66,7 +57,7 @@ export default function Card({ data }: ArticlesData) {
   return (
     <S.Container>
       <S.Top>
-        <S.Link to={web_url}>{headline.main}</S.Link>
+        <S.Link to={web_url}>{headline?.main}</S.Link>
         {isSaved ? (
           <CheckedStarIcon onClick={() => removeArticles(_id)} fill="#FFB800" />
         ) : (
