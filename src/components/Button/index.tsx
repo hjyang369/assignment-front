@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes } from "react";
 import { S } from "./style";
 //
+import { ButtonHTMLAttributes } from "react";
 
 type buttonProps = {
   onclick: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];

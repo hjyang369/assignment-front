@@ -1,17 +1,19 @@
 import { S } from "./style";
 //
+import { useEffect, useState } from "react";
+import { useArticleStore } from "store/articles";
+import { useScrapFilterStore } from "store/scrapFilter";
+import Nav from "components/Nav";
 import Card from "../../components/Card";
 import Nothing from "../../components/Nothing";
-import { useArticleStore } from "store/articles";
-import Nav from "components/Nav";
-import { useScrapFilterStore } from "store/scrapFilter";
-import { useEffect, useState } from "react";
+import { ArticlesDataType } from "types/article";
 
 export default function Scrap() {
   const { articleList } = useArticleStore();
-  const [filteredList, setFilteredList] = useState(articleList);
+  const [filteredList, setFilteredList] =
+    useState<ArticlesDataType[]>(articleList);
   const isEmpty = articleList.length === 0;
-  const isfilterEmpty = filteredList.length === 0;
+  const isFilterEmpty = filteredList.length === 0;
 
   const { textList, changeText } = useScrapFilterStore();
 
@@ -21,21 +23,19 @@ export default function Scrap() {
     if (textList.title) {
       const lowerCaseTitle = textList.title.toLowerCase();
       filteredResult = filteredResult.filter((article) =>
-        article.content.headline.main.toLowerCase().includes(lowerCaseTitle)
+        article.headline.main.toLowerCase().includes(lowerCaseTitle)
       );
     }
     if (textList.date) {
-      filteredResult = filteredResult.filter((article) =>
-        article.content.pub_date.includes(textList.date)
-      );
+      filteredResult = filteredResult.filter((article) => {
+        article.pub_date.includes(textList.date);
+      });
     }
     if (textList.country.length > 0) {
       const countryValues = textList.country.flatMap((c) => c.value);
       filteredResult = filteredResult.filter((article) =>
         countryValues.some((countryValue) =>
-          article.content.abstract
-            .toLowerCase()
-            .includes(countryValue.toLowerCase())
+          article.abstract.toLowerCase().includes(countryValue.toLowerCase())
         )
       );
     }
@@ -43,13 +43,13 @@ export default function Scrap() {
   }, [textList, articleList]);
 
   return (
-    <S.Container $isEmpty={isEmpty || isfilterEmpty}>
-      <Nav textList={textList} changeText={changeText} resetData={null} />
-      <S.Cards $isEmpty={isEmpty || isfilterEmpty}>
+    <S.Container $isEmpty={isEmpty || isFilterEmpty}>
+      <Nav textList={textList} changeText={changeText} resetData={undefined} />
+      <S.Cards>
         {!isEmpty ? (
-          !isfilterEmpty ? (
+          !isFilterEmpty ? (
             filteredList?.map((data) => {
-              return <Card key={data.content._id} data={data.content} />;
+              return <Card key={data._id} data={data} />;
             })
           ) : (
             <Nothing text={"조건에 맞는 스크랩이 없습니다."} />

@@ -1,20 +1,20 @@
 import { S } from "./style";
-import Tag from "components/Tag";
-import Modal from "components/Modal";
-import { useState } from "react";
 import { ReactComponent as CalenderIcon } from "../../asset/icon/calender.svg";
 import { ReactComponent as SearchIcon } from "../../asset/icon/search.svg";
+//
+import { useState } from "react";
+import { ArticlesDataType } from "../../types/article";
+import Tag from "components/Tag";
+import Modal from "components/Modal";
+import { TextListType } from "../../types/article";
 
-interface Text {
-  textList: {
-    title: string;
-    date: string;
-    country: string;
-  };
-  changeText: () => void;
-  resetData?: () => void;
-}
-export default function Nav({ textList, changeText, resetData }: Text) {
+type Text = {
+  textList: TextListType;
+  changeText: (data: TextListType) => void;
+  resetData?: React.Dispatch<React.SetStateAction<ArticlesDataType[]>>;
+  isMain?: boolean;
+};
+export default function Nav({ textList, changeText, resetData, isMain }: Text) {
   const [isOpen, setIsOpen] = useState(false);
 
   const country = `${textList.country[0] ? textList.country[0].name : ""}${
@@ -53,6 +53,7 @@ export default function Nav({ textList, changeText, resetData }: Text) {
           setIsOpen={setIsOpen}
           changeText={changeText}
           resetData={resetData}
+          isMain={isMain}
         />
       )}
     </S.Container>

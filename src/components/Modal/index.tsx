@@ -1,46 +1,36 @@
-import Button from "components/Button";
 import { S } from "./style";
-import useInputValue from "hooks/useInputValue";
+//
 import { useState } from "react";
-import { useLocation } from "react-router";
-
-const countryData = [
-  { id: 1, name: "대한민국", value: ["Korea", "Korean"] },
-  { id: 2, name: "중국", value: ["China", "Chinese"] },
-  { id: 3, name: "일본", value: ["Japan", "Japanese"] },
-  { id: 4, name: "미국", value: ["USA", "American", "America"] },
-  { id: 5, name: "북한", value: ["North Korea", "North Korean"] },
-  { id: 6, name: "러시아", value: ["Russia", "Russian"] },
-  { id: 7, name: "프랑스", value: ["France", "French"] },
-  { id: 8, name: "영국", value: ["UK", "Englishman"] },
-];
+import { ArticlesDataType } from "../../types/article";
+import Button from "components/Button";
+import useInputValue from "hooks/useInputValue";
+import { COUNTRY_DATA } from "../../modules/constants";
+import { TextListType, CountryDataType } from "../../types/article";
 
 type modalProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  changeText: ({}) => void;
-  resetData?: ([]) => void;
+  changeText: (data: TextListType) => void;
+  resetData?: React.Dispatch<React.SetStateAction<ArticlesDataType[]>>;
+  isMain?: boolean;
 };
 
 export default function Modal({
   setIsOpen,
   changeText,
   resetData,
+  isMain,
 }: modalProps) {
-  const initInputValue = {
-    headLine: "",
-  };
-  const [countries, setCountries] = useState([]);
+  const initInputValue = { headLine: "" };
+  const [countries, setCountries] = useState<CountryDataType[]>([]);
   const [date, setDate] = useState("");
-  const [isfocus, setIsfocus] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
+  const [isFocus, setIsFocus] = useState(false);
 
   const { inputValue, handleInput } = useInputValue(initInputValue);
 
   const selectCountry = (name: string, idx: number) => {
     const isDuplicate = countries.some((country) => country.name === name);
     if (!isDuplicate) {
-      setCountries((prevCountries) => [...prevCountries, countryData[idx]]);
+      setCountries((prevCountries) => [...prevCountries, COUNTRY_DATA[idx]]);
     } else {
       const updatedCountries = countries.filter(
         (country) => country.name !== name
@@ -49,7 +39,7 @@ export default function Modal({
     }
   };
 
-  const selectDate = (e) => {
+  const selectDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
 
@@ -59,7 +49,11 @@ export default function Modal({
       date: date,
       country: countries,
     });
-    isHome && resetData([]);
+
+    if (isMain) {
+      typeof resetData === "function" && resetData([]);
+    }
+
     setIsOpen(false);
   };
 
@@ -79,19 +73,19 @@ export default function Modal({
         <S.SelectValue>
           <S.Title>날짜</S.Title>
           <S.Input
-            type={isfocus ? "date" : "text"}
-            id="datepicker"
-            name="datepicker"
+            type={isFocus ? "date" : "text"}
+            id="datePicker"
+            name="datePicker"
             placeholder="날짜를 선택해주세요."
-            onFocus={() => setIsfocus(true)}
-            onBlur={() => setIsfocus(false)}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
             onChange={(e) => selectDate(e)}
           />
         </S.SelectValue>
         <S.SelectValue>
           <S.Title>국가</S.Title>
           <S.Buttons>
-            {countryData.map((country, idx) => {
+            {COUNTRY_DATA.map((country, idx) => {
               return (
                 <S.CountryBtn
                   key={country.id}
