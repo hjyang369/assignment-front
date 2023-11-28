@@ -5,7 +5,7 @@ export const S = {
     position: fixed;
     bottom: 0;
     z-index: 1;
-    background-color: #000000;
+    background-color: ${({ theme }) => theme.Black100};
     max-width: 560px;
     width: 100%;
     height: 85px;
@@ -25,7 +25,7 @@ export const S = {
     justify-content: center;
     gap: 4px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.FW600};
     line-height: 12px;
     text-align: center;
     color: ${(props) => (props.$currentTab ? "#ffffff" : "#6D6D6D")};

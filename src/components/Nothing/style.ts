@@ -12,10 +12,10 @@ export const S = {
   `,
   Text: styled.p`
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.FW600};
     line-height: 28px;
     letter-spacing: -0.05em;
     text-align: left;
-    color: #6d6d6d;
+    color: ${({ theme }) => theme.Black80};
   `,
 };

@@ -23,4 +23,5 @@ export interface TextListType {
   title: string;
   date: string;
   country: CountryDataType[];
+  hasValue: boolean;
 }

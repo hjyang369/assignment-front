@@ -33,7 +33,7 @@ export const S = {
     text-decoration: none;
     width: 270px;
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.FW600};
     line-height: 28px;
     text-align: left;
     overflow: hidden;
@@ -57,7 +57,7 @@ export const S = {
 
   NameData: styled.p`
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: ${({ theme }) => theme.FW400};
     line-height: 20px;
     text-align: left;
     width: 90px;
@@ -69,9 +69,9 @@ export const S = {
 
   DateData: styled.p`
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: ${({ theme }) => theme.FW400};
     line-height: 20px;
     text-align: left;
-    color: #6d6d6d;
+    color: ${({ theme }) => theme.Black80};
   `,
 };

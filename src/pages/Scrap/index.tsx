@@ -27,17 +27,33 @@ export default function Scrap() {
       );
     }
     if (textList.date) {
-      filteredResult = filteredResult.filter((article) => {
-        article.pub_date.includes(textList.date);
-      });
+      filteredResult = filteredResult.filter((article) =>
+        article.pub_date.includes(textList.date)
+      );
     }
     if (textList.country.length > 0) {
-      const countryValues = textList.country.flatMap((c) => c.value);
-      filteredResult = filteredResult.filter((article) =>
+      const countryValues = textList.country.flatMap(
+        (countries) => countries.value
+      );
+
+      const abstractMatches = filteredResult.filter((article) =>
         countryValues.some((countryValue) =>
           article.abstract.toLowerCase().includes(countryValue.toLowerCase())
         )
       );
+
+      const headlineMatches = filteredResult.filter((article) =>
+        countryValues.some((countryValue) =>
+          article.headline.main
+            .toLowerCase()
+            .includes(countryValue.toLowerCase())
+        )
+      );
+
+      const combinedMatches = [
+        ...new Set(abstractMatches.concat(headlineMatches)),
+      ];
+      filteredResult = combinedMatches;
     }
     setFilteredList(filteredResult);
   }, [textList, articleList]);
