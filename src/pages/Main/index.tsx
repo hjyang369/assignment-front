@@ -12,13 +12,15 @@ import Nothing from "components/Nothing";
 
 export default function Main() {
   const [articleData, setArticleData] = useState<ArticlesDataType[]>([]);
-  const [page, setPage] = useState(0);
   const { textList, changeText } = useHomeFilterStore();
+  const { idList } = useArticleStore();
+  const [page, setPage] = useState(0);
+  const [noMoreData, setNoMoreData] = useState(false);
+
   const loaderRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
   const [loading, setLoading] = useState(false);
-  const { idList } = useArticleStore();
-  const [noMoreData, setNoMoreData] = useState(false);
+
   const REACT_APP_NYT_API_KEY = process.env.REACT_APP_NYT_API_KEY;
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
@@ -33,7 +35,7 @@ export default function Main() {
 
   useEffect(() => {
     const date = Number(textList.date.split("-").join(""));
-    const countriesArray = textList.country.map((country) => country.value);
+    const countriesArray = textList.country.map((country) => country.value[0]);
     const countries = countriesArray.join(" AND ");
     const apiUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?&api-key=${REACT_APP_NYT_API_KEY}`;
 
@@ -47,7 +49,7 @@ export default function Main() {
       )
       .then((res) => {
         const newData: ArticlesDataType[] = res.data?.response?.docs || [];
-        if (newData.length === 0) {
+        if (res.data.response?.docs.length === 0) {
           setNoMoreData(true);
         } else {
           const UpdateData = newData.map((item) => {
@@ -98,10 +100,11 @@ export default function Main() {
         isMain
       />
 
-      {articleData.map((data) => {
-        return <Card key={data._id} data={{ ...data }} />;
-      })}
-      {noMoreData && articleData.length === 0 && (
+      {articleData.length > 0 &&
+        articleData.map((data) => {
+          return <Card key={data._id} data={{ ...data }} />;
+        })}
+      {!loading && articleData.length === 0 && noMoreData && (
         <Nothing text={"조건에 맞는 기사가 없습니다."} isMain />
       )}
       {loading && <Loading isEmpty={articleData.length === 0} />}

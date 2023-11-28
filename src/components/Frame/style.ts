@@ -7,7 +7,7 @@ export const S = {
     margin: 0 auto;
     width: 100%;
     height: 100vh;
-    background-color: #f0f1f4;
+    background-color: ${({ theme }) => theme.BG_Gray};
     display: flex;
     justify-content: center;
     overflow: auto;

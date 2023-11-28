@@ -4,13 +4,14 @@ import { S } from "./style";
 type tagProps = {
   icon?: ReactElement<SVGElement>;
   text: string;
+  hasValue: boolean;
 };
 
-export default function Tag({ icon, text }: tagProps) {
+export default function Tag({ icon, text, hasValue }: tagProps) {
   return (
-    <S.Container>
+    <S.Container $hasValue={hasValue}>
       {icon && React.cloneElement(icon, {})}
-      <S.Text>{text}</S.Text>
+      <S.Text $hasValue={hasValue}>{text}</S.Text>
     </S.Container>
   );
 }

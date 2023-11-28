@@ -24,18 +24,21 @@ export default function Nav({ textList, changeText, resetData, isMain }: Text) {
   const navIcon = [
     {
       id: 1,
-      icon: <SearchIcon />,
+      icon: <SearchIcon fill={textList.title ? "#3478F6" : "#6D6D6D"} />,
       text: textList.title ? textList.title : "전체 헤드라인",
+      hasValue: Boolean(textList.title),
     },
     {
       id: 2,
-      icon: <CalenderIcon />,
+      icon: <CalenderIcon fill={textList.date ? "#3478F6" : "#6D6D6D"} />,
       text: textList.date ? textList.date : "전체 날짜",
+      hasValue: Boolean(textList.date),
     },
     {
       id: 3,
       icon: undefined,
       text: textList.country.length > 0 ? country : "전체 국가",
+      hasValue: textList.country.length > 0,
     },
   ];
 
@@ -44,7 +47,7 @@ export default function Nav({ textList, changeText, resetData, isMain }: Text) {
       {navIcon.map((icon) => {
         return (
           <div key={icon.id} onClick={() => setIsOpen(!isOpen)}>
-            <Tag icon={icon.icon} text={icon.text} />
+            <Tag icon={icon.icon} text={icon.text} hasValue={icon.hasValue} />
           </div>
         );
       })}

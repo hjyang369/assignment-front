@@ -37,7 +37,7 @@ export const S = {
 
   Title: styled.p`
     font-size: 1.6rem;
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.FW600};
     line-height: 24px;
     letter-spacing: -0.05em;
     text-align: left;
@@ -51,7 +51,7 @@ export const S = {
     border: 1px solid #c4c4c4;
 
     &::placeholder {
-      color: #c4c4c4;
+      color: ${({ theme }) => theme.Gray};
     }
   `,
 
@@ -63,7 +63,7 @@ export const S = {
     border: 1px solid #c4c4c4;
 
     &::placeholder {
-      color: #c4c4c4;
+      color: ${({ theme }) => theme.Gray};
     }
   `,
 
@@ -85,7 +85,7 @@ export const S = {
     gap: 8px;
 
     font-size: 1.4rem;
-    font-weight: 400;
+    font-weight: ${({ theme }) => theme.FW400};
     line-height: 24px;
     letter-spacing: -0.04em;
     text-align: right;
